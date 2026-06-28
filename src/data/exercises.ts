@@ -1,4 +1,11 @@
 import { LibraryExercise } from "../types";
+import speechMirrorImg from "../assets/images/speech_therapy_mirror_1782673697796.jpg";
+import cottonBlowingImg from "../assets/images/cotton_ball_blowing_1782673716770.jpg";
+import tongueLiftImg from "../assets/images/tongue_lift_exercise_1782673732428.jpg";
+import trafficLightImg from "../assets/images/traffic_light_game_1782673749079.jpg";
+import rewardChartImg from "../assets/images/reward_chart_1782673762968.jpg";
+import pecsCardsImg from "../assets/images/pecs_cards_1782673778784.jpg";
+import visualScheduleImg from "../assets/images/visual_schedule_1782673793942.jpg";
 
 export const libraryExercises: LibraryExercise[] = [
   // Speech & Articulation
@@ -14,7 +21,8 @@ export const libraryExercises: LibraryExercise[] = [
       "ابدأ بحركات فم مبالغ فيها (مثل: فتح الفم كشخص مندهش، مد الشفاه للأمام كقبلة، تحريك اللسان لليمين واليسار).",
       "اطلب من الطفل محاكاة حركاتك بالنظر للمرآة مع نطق أصوات تعبيرية ممتعة مصاحبة (مثل: 'أووو'، 'إييي').",
       "كافئ الطفل بملصق تفاعلي عند كل محاولة تقليد ناجحة ومستمرة لـ 5 ثوانٍ."
-    ]
+    ],
+    imagePath: speechMirrorImg
   },
   {
     id: "ex_2",
@@ -28,7 +36,8 @@ export const libraryExercises: LibraryExercise[] = [
       "خذ شهيقاً عميقاً من الأنف، ثم انفخ الكرة من خلال الشفاطة لجعلها تسير على الطاولة.",
       "شجع الطفل على تكرار الحركة لمحاكاة سباق كرات القطن.",
       "ساعد الطفل على التدرج في قوة النفخ ونوعيته (نفخ سريع قوي، نفخ طويل هادئ)."
-    ]
+    ],
+    imagePath: cottonBlowingImg
   },
   {
     id: "ex_3",
@@ -42,7 +51,8 @@ export const libraryExercises: LibraryExercise[] = [
       "اطلب من الطفل لعق الشوكولاتة باستخدام طرف اللسان فقط دون غلق الأسنان.",
       "كرر التمرين عدة مرات لتقوية عضلات مقدمة اللسان وتثبيت موضع الارتكاز.",
       "وجه الطفل لإصدار صوت الاهتزاز (ارررر) مع توجيه هواء الزفير نحو طرف اللسان المرتفع."
-    ]
+    ],
+    imagePath: tongueLiftImg
   },
 
   // Behavior & Focus
@@ -58,7 +68,8 @@ export const libraryExercises: LibraryExercise[] = [
       "ابدأ برفع البطاقة الخضراء ليلعب الطفل، ثم فجأة ارفع الحمراء وقل 'قف!'.",
       "أثنِ على التزام الطفل بالوقوف، وكافئه بنجمة عند التوقف الفوري دون اندفاع.",
       "زد من صعوبة اللعبة تدريجياً بتقليل الفواصل الزمنية وتغيير نغمات التوجيه."
-    ]
+    ],
+    imagePath: trafficLightImg
   },
   {
     id: "ex_5",
@@ -72,7 +83,8 @@ export const libraryExercises: LibraryExercise[] = [
       "اشرح للطفل بوضوح أنه سيحصل على 'نجمة ذهبية' فور إتمام كل مهمة.",
       "اتفق معه على مكافأة كبرى نهاية الأسبوع (مثل: نزهة أو لعبة مفضلة) عند تجميع عدد محدد من النجوم (مثلاً 10 نجوم).",
       "احرص على لصق النجمة فوراً أمام الطفل بمجرد انتهائه من المهمة لضمان الارتباط الشرطي الإيجابي للتعزيز."
-    ]
+    ],
+    imagePath: rewardChartImg
   },
 
   // Special Education & PECS
@@ -89,7 +101,8 @@ export const libraryExercises: LibraryExercise[] = [
       "بمساعدة الأخصائي أو المساعد، يتم توجيه يد الطفل جسدياً لالتقاط البطاقة ووضعها في يد المدرب (ولي الأمر).",
       "بمجرد تسلم البطاقة، قل بصوت واضح 'بسكويت! تفضل' وسلمه الشيء فوراً.",
       "كرر العملية مع تقليل المساعدة الجسدية تدريجياً حتى يبادر الطفل بالتبادل بمفرده تلقائياً."
-    ]
+    ],
+    imagePath: pecsCardsImg
   },
   {
     id: "ex_7",
@@ -103,6 +116,7 @@ export const libraryExercises: LibraryExercise[] = [
       "ضع صورة النشاط المفضل والترفيهي للطفل (مثل: اللعب بالسيارات أو تناول العصير) تحت خانة 'ثم'.",
       "أشر للوحة بوضوح وقل للطفل: 'أولاً ندرس الحروف، ثم نلعب بالسيارات'.",
       "عند انتهاء الدرس، دع الطفل ينقل بطاقة الدراسة لـ 'سلة الإنجاز' وتوجيهه بحماس نحو نشاط اللعب مباشرة."
-    ]
+    ],
+    imagePath: visualScheduleImg
   }
 ];

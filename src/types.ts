@@ -41,4 +41,5 @@ export interface LibraryExercise {
   steps: string[];
   targetAge: string;
   materials: string[];
+  imagePath?: string;
 }

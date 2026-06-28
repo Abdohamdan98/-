@@ -17,7 +17,8 @@ import {
   User, 
   Users, 
   AlertCircle, 
-  Heart, 
+  Heart,
+  MessageCircle, 
   Star,
   Printer,
   Sparkles,
@@ -27,14 +28,17 @@ import {
   ChevronLeft
 } from "lucide-react";
 
+
+
 import { ChildCase, Appointment, TreatmentPlan, LibraryExercise } from "./types";
 import { libraryExercises } from "./data/exercises";
+import logo from "./assets/images/logo_1782674060653.jpg";
 
 export default function App() {
+
+
   // Navigation & View State
   const [activeTab, setActiveTab] = useState<"home" | "assessment" | "library" | "booking" | "cases">("home");
-  
-  // Clinical State
   const [cases, setCases] = useState<ChildCase[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   
@@ -228,6 +232,15 @@ export default function App() {
 
       if (res.ok) {
         triggerNotification("تم إرسال طلب الحجز بنجاح! سيقوم الأخصائي بمراجعته.");
+        
+        // WhatsApp notification
+        const message = `طلب حجز موعد جديد:
+        ولي الأمر: ${bookingForm.parentName}
+        اسم الطفل: ${bookingForm.childName}
+        التاريخ: ${bookingForm.date}
+        الوقت: ${bookingForm.timeSlot}`;
+        window.open(`https://wa.me/201125663891?text=${encodeURIComponent(message)}`, "_blank");
+
         setBookingForm({
           parentName: "",
           childName: "",
@@ -369,93 +382,68 @@ export default function App() {
     window.print();
   };
 
+
+
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans" dir="rtl" id="main-container">
+    <div className="min-h-screen bg-slate-200 p-2 md:p-6" dir="rtl" id="main-container">
+      <div className="bg-white min-h-[calc(100vh-16px)] md:min-h-[calc(100vh-48px)] rounded-3xl shadow-2xl border border-slate-300 overflow-hidden">
       {/* Navigation Top Header */}
-      <header className="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 print:hidden max-w-7xl w-full mx-auto mt-6" id="app-header">
-        {/* Logo and Brand */}
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-sky-100">ع</div>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-sky-900 tracking-tight">الاخصائي عبدالرحمن</h1>
-            <p className="text-[10px] text-sky-600 font-bold -mt-1 hidden sm:block">منصة أخصائيي التخاطب الذكية</p>
+      <header className="mb-6 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-sm border border-slate-200 print:hidden max-w-7xl w-full mx-auto mt-4 sticky top-4 z-40" id="app-header">
+        <div className="flex items-center justify-between w-full mb-4">
+          {/* Logo and Brand */}
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="الاخصائي عبدالرحمن" className="w-12 h-12 object-contain rounded-xl border border-slate-100 p-0.5" />
+            <div>
+              <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">الاخصائي عبدالرحمن</h1>
+              <p className="text-[11px] text-sky-700 font-semibold mt-0.5">منصة أخصائيي التخاطب الذكية</p>
+            </div>
+          </div>
+
+          {/* User Badge */}
+          <div className="flex items-center gap-3 bg-slate-100 py-1.5 px-3 rounded-full border border-slate-200">
+            <div className="text-right hidden sm:block">
+              <p className="text-[11px] font-bold text-slate-900">د. عبدالرحمن حمدان</p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sky-700 font-bold text-xs shadow-sm">
+              ع
+            </div>
           </div>
         </div>
 
-        {/* Tabs for desktop */}
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-slate-500 font-bold text-sm">
-          <button
-            id="nav-home"
-            onClick={() => { setActiveTab("home"); setActivePlan(null); }}
-            className={`transition-colors font-bold px-1 py-1 ${
-              activeTab === "home" 
-                ? "text-sky-600 border-b-2 border-sky-600" 
-                : "text-slate-500 hover:text-sky-600"
-            }`}
-          >
-            الرئيسية
-          </button>
-
-          <button
-            id="nav-assessment"
-            onClick={() => setActiveTab("assessment")}
-            className={`transition-colors font-bold px-1 py-1 ${
-              activeTab === "assessment" 
-                ? "text-sky-600 border-b-2 border-sky-600" 
-                : "text-slate-500 hover:text-sky-600"
-            }`}
-          >
-            التقييم الذكي
-          </button>
-
-          <button
-            id="nav-cases"
-            onClick={() => { setActiveTab("cases"); setActivePlan(null); }}
-            className={`transition-colors font-bold px-1 py-1 ${
-              activeTab === "cases" 
-                ? "text-sky-600 border-b-2 border-sky-600" 
-                : "text-slate-500 hover:text-sky-600"
-            }`}
-          >
-            سجلات الأطفال
-          </button>
-
-          <button
-            id="nav-library"
-            onClick={() => { setActiveTab("library"); setActivePlan(null); }}
-            className={`transition-colors font-bold px-1 py-1 ${
-              activeTab === "library" 
-                ? "text-sky-600 border-b-2 border-sky-600" 
-                : "text-slate-500 hover:text-sky-600"
-            }`}
-          >
-            المكتبة التدريبية
-          </button>
-
-          <button
-            id="nav-booking"
-            onClick={() => { setActiveTab("booking"); setActivePlan(null); }}
-            className={`transition-colors font-bold px-1 py-1 ${
-              activeTab === "booking" 
-                ? "text-sky-600 border-b-2 border-sky-600" 
-                : "text-slate-500 hover:text-sky-600"
-            }`}
-          >
-            حجز موعد
-          </button>
+        {/* Interactive Navigation Menu */}
+        <nav className="flex flex-wrap gap-1 text-[13px] font-semibold w-full border-t border-slate-100 pt-3">
+          {[
+            { id: "home", label: "الرئيسية", icon: Home },
+            { id: "assessment", label: "التقييم الذكي", icon: Brain },
+            { id: "cases", label: "سجلات الأطفال", icon: Users },
+            { id: "library", label: "المكتبة التدريبية", icon: BookOpen },
+            { id: "booking", label: "حجز موعد", icon: Calendar },
+            { id: "contact", label: "تواصل معنا", icon: MessageCircle, url: "https://wa.me/201125663891" },
+          ].map((item) => (
+            <button
+              key={item.id}
+              id={`nav-${item.id}`}
+              onClick={() => {
+                if (item.url) {
+                  window.open(item.url, "_blank");
+                } else {
+                  setActiveTab(item.id as any); setActivePlan(null);
+                }
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === item.id 
+                  ? "bg-slate-900 text-white" 
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <item.icon className="w-3.5 h-3.5" />
+              {item.label}
+            </button>
+          ))}
         </nav>
-
-        {/* Quick stats / User Badge */}
-        <div className="flex items-center gap-3">
-          <div className="text-right ml-3 hidden sm:block">
-            <p className="text-sm font-extrabold leading-none text-slate-900">د. عبدالرحمن حمدان</p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold">أخصائي تخاطب أول</p>
-          </div>
-          <div className="w-10 h-10 rounded-full bg-sky-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-600 font-extrabold text-base">
-            ع
-          </div>
-        </div>
       </header>
+
 
       {/* Floating Notifications */}
       {notification && (
@@ -488,6 +476,17 @@ export default function App() {
         {/* ==================== HOME TAB ==================== */}
         {activeTab === "home" && (
           <div className="grid grid-cols-12 gap-6 animate-fade-in" id="home-view">
+            {/* Welcome Message */}
+            <div className="col-span-12 bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-extrabold text-slate-900">أهلاً بك 👋</h2>
+                <p className="text-sm text-slate-500 mt-1 font-medium">سعداء برؤيتك مجدداً. اليوم هو فرصة جديدة لإحداث فارق في حياة الأطفال.</p>
+              </div>
+              <div className="hidden sm:block">
+                <span className="text-4xl">🌟</span>
+              </div>
+            </div>
+
             {/* Hero banner section */}
             <div className="col-span-12 lg:col-span-8 relative overflow-hidden bg-gradient-to-br from-sky-700 via-sky-600 to-indigo-700 rounded-3xl text-white p-6 md:p-8 shadow-sm border border-slate-200/50 flex flex-col justify-between min-h-[220px]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_60%)] pointer-events-none" />
@@ -1405,6 +1404,7 @@ export default function App() {
                       </span>
                       <span className="text-[10px] text-slate-400 font-extrabold">العمر: {ex.targetAge}</span>
                     </div>
+                    {ex.imagePath && <img src={ex.imagePath} alt={ex.title} className="w-full h-40 object-cover rounded-2xl" />}
 
                     {/* Title */}
                     <h3 className="font-extrabold text-slate-900 leading-snug">{ex.title}</h3>
@@ -1619,7 +1619,7 @@ export default function App() {
       {/* Modern Footer */}
       <footer className="bg-slate-900 text-slate-400 py-10 mt-16 border-t border-slate-800 print:hidden" id="app-footer">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-800 pb-8">
+          <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="flex items-center gap-2">
               <div className="bg-sky-600 p-2 rounded-xl text-white">
                 <Brain className="h-5 w-5" />
@@ -1628,13 +1628,6 @@ export default function App() {
                 <span className="text-white font-extrabold text-base block leading-none">الاخصائي عبدالرحمن</span>
                 <span className="text-[10px] text-slate-500 font-bold mt-1 block">رعاية متخصصة بخطوات ذكية ميسرة</span>
               </div>
-            </div>
-            
-            <div className="flex gap-6 text-sm font-bold">
-              <button onClick={() => { setActiveTab("home"); setActivePlan(null); }} className="hover:text-white transition-colors">الرئيسية</button>
-              <button onClick={() => { setActiveTab("assessment"); }} className="hover:text-white transition-colors">التقييم الذكي</button>
-              <button onClick={() => { setActiveTab("library"); setActivePlan(null); }} className="hover:text-white transition-colors">المكتبة التدريبية</button>
-              <button onClick={() => { setActiveTab("booking"); setActivePlan(null); }} className="hover:text-white transition-colors">حجز موعد</button>
             </div>
           </div>
 
@@ -1645,5 +1638,6 @@ export default function App() {
         </div>
       </footer>
     </div>
-  );
+  </div>
+);
 }
