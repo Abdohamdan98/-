@@ -1,0 +1,8 @@
+{
+  "name": "الاخصائي عبدالرحمن",
+  "description": "A smart platform for speech therapists and educators to perform diagnostic assessments, auto-generate treatment plans, and track children\u0027s progress.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
